@@ -20,7 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-
 def average_score(students_marks: dict[str, int]) -> float:
     """
     Calculates the average score of all students.
@@ -66,7 +65,7 @@ def marks_matrix(students_marks: dict[str, int]) -> list[list[int | str]]:
 
     return matrix
 
-def lowest_highest(marks: dict[str, int]) -> list[tuple[int | int]]:
+def lowest_highest(students_marks: dict[str, int]) -> list[tuple[int, int]]:
     """
     Builds a list showing the lowest mark alongside the number of students that were given that score.
 
@@ -84,7 +83,7 @@ def lowest_highest(marks: dict[str, int]) -> list[tuple[int | int]]:
     """
 
     list_lower_higher = []
-    matrix = marks_matrix(marks)
+    matrix = marks_matrix(students_marks)
 
     lowest = matrix[0]
     highest = matrix[-1]
@@ -128,6 +127,22 @@ def most_often_score(students_marks: dict[str, int]) -> tuple[int, int]:
     return (most_frequent_row[0], highest_count)
 
 
+def least_often_score(students_marks: dict[str, int]) -> list[tuple[int, int]]:
+    """
+    Shows the score(s) that appear least often among the students.
+    """
+    # Count how many times each score appears
+    frequency = {}
+    for mark in students_marks.values():
+        frequency[mark] = frequency.get(mark, 0) + 1
+
+    # Find the minimum frequency
+    min_count = min(frequency.values())
+
+    # Collect all scores with that minimum frequency
+    least_often_scores = [(mark, count) for mark, count in frequency.items() if count == min_count]
+    return least_often_scores
+
 students_marks = {
     "Alice": 7, "Bob": 9, "Charlie": 3, "Diana": 7, "Ethan": 4,
     "Fiona": 3, "George": 7, "Hannah": 6, "Ian": 5, "Julia": 3,
@@ -146,17 +161,14 @@ def main():
     """
     The main function of the program.
     """
-
-    # TODO - Show average score
-    # TODO - Show most often score
-    # TODO - Show least often score
-    # TODO - Show highest and lowest score
     marks = marks_matrix(students_marks)
     for mark in marks:
         print(mark)
 
     print("Lowest and highest:", lowest_highest(students_marks))
-    print("Avarage score:", avarege_score(students_marks))
+    print("Avarage score:", average_score(students_marks))
+    print("Most often score:", most_often_score(students_marks))
+    print("Least often score:", least_often_score(students_marks))
 
 
 if __name__ == "__main__":
