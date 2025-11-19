@@ -49,8 +49,7 @@ def marks_matrix(students_marks: dict[str, int]) -> list[list[int | str]]:
 
     return matrix
 
-
-def lowest_highest(marks: dict[str, int]) -> list[list[int | int]]:
+def lowest_highest(marks: dict[str, int]) -> list[tuple[int | int]]:
     """
     Builds a list showing the lowest mark alongside the number of students that were given that score.
 
@@ -80,6 +79,36 @@ def lowest_highest(marks: dict[str, int]) -> list[list[int | int]]:
     list_lower_higher.append((highest[0], highest_count))
 
     return list_lower_higher
+
+def most_often_score(students_marks: dict[str, int]) -> tuple[int, int]:
+    """
+    Determines which score was given the most times and how many students obtained it.
+
+    Args:
+        students_marks: dict[str, int]:
+            A dictionary whose keys are each students' name with the value being their score.
+            Example: {"Sarah": 7, "Leo": 3}
+
+    Returns:
+        A tuple containing the most frequently obtained score and the number of students
+        that were given such score.
+        Example: (7, 5)
+    """
+
+    matrix = marks_matrix(students_marks)
+
+    most_frequent_row = None
+    highest_count = -1
+
+    for row in matrix:
+        score = row[0]
+        count = len(row) - 1
+
+        if count > highest_count:
+            most_frequent_row = row
+            highest_count = count
+
+    return (most_frequent_row[0], highest_count)
 
 
 students_marks = {
