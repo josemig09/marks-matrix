@@ -122,13 +122,13 @@ def most_often_score(students_marks: dict[str, int]) -> tuple[int, int]:
 
     for row in matrix:
         score = row[0]
-        count = len(row) - 1
+        n_students = len(row) - 1
 
-        if count > highest_count:
+        if n_students > highest_num:
             most_frequent_row = row
-            highest_count = count
+            highest_num = n_students
 
-    return (most_frequent_row[0], highest_count)
+    return (most_frequent_row[0], highest_num)
 
 
 def least_often_score(students_marks: dict[str, int]) -> list[tuple[int, int]]:
